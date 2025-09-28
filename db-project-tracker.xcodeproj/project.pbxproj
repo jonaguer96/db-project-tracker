@@ -35,16 +35,6 @@
 			path = "db-project-tracker";
 			sourceTree = "<group>";
 		};
-		9A32B0812E6E760500F3C383 /* db-project-trackerTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "db-project-trackerTests";
-			sourceTree = "<group>";
-		};
-		9A32B08B2E6E760500F3C383 /* db-project-trackerUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "db-project-trackerUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,8 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				9A32B0732E6E760200F3C383 /* db-project-tracker */,
-				9A32B0812E6E760500F3C383 /* db-project-trackerTests */,
-				9A32B08B2E6E760500F3C383 /* db-project-trackerUITests */,
 				9A32B0722E6E760200F3C383 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -130,9 +118,6 @@
 			dependencies = (
 				9A32B0802E6E760500F3C383 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				9A32B0812E6E760500F3C383 /* db-project-trackerTests */,
-			);
 			name = "db-project-trackerTests";
 			packageProductDependencies = (
 			);
@@ -152,9 +137,6 @@
 			);
 			dependencies = (
 				9A32B08A2E6E760500F3C383 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				9A32B08B2E6E760500F3C383 /* db-project-trackerUITests */,
 			);
 			name = "db-project-trackerUITests";
 			packageProductDependencies = (
