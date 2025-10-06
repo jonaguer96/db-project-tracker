@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ProjectCardView: View {
+    
+    var project: Project
+    
     var body: some View {
         ZStack (alignment: .leading) {
             RoundedRectangle(cornerRadius: 15)
                 .opacity(0.7)
                 .shadow(radius: 10, x:0, y:4)
             VStack (alignment: .leading, spacing: 10) {
-                Text("CodeWithChris")
+                Text(project.name)
                     .font(.bigHeadline)
                     .foregroundStyle(.white)
                 HStack (alignment: .center, spacing: 13) {
@@ -39,5 +42,5 @@ struct ProjectCardView: View {
 }
 
 #Preview {
-    ProjectCardView()
+    ProjectCardView(project: Project())
 }
