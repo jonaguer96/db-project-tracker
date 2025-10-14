@@ -11,13 +11,15 @@ struct ProjectDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     var project: Project
+    
+    @State private var update: ProjectUpdate?
     var body: some View {
         
         ZStack {
             LinearGradient(colors: [Color("Navy"), Color("Washed Blue")], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             
-            LinearGradient(colors: [Color("Blue"), Color("Teal")], startPoint: .top, endPoint: .bottom)
+            LinearGradient(colors: [Color("Blue").opacity(0), Color("Teal")], startPoint: .top, endPoint: .bottom)
                 .frame(width: 1)
                 .padding(.leading, -150)
             
@@ -57,13 +59,10 @@ struct ProjectDetailView: View {
                 // Project Updates
                 ScrollView (showsIndicators: false) {
                     VStack (spacing: 27) {
-                        ProjectUpdateView()
-                        ProjectUpdateView()
-                        ProjectUpdateView()
-                        ProjectUpdateView()
-                        ProjectUpdateView()
-                        ProjectUpdateView()
-                        ProjectUpdateView()
+                        ForEach(project.updates) { update in
+                            ProjectUpdateView(update: update)
+                        }
+
                     }
                     .padding()
                     .padding(.bottom, 80)
@@ -74,7 +73,8 @@ struct ProjectDetailView: View {
                 Spacer()
                 HStack {
                     Button(action: {
-                        //TODO: add project update
+                        //Add project update
+                        self.update = ProjectUpdate()
                     }, label: {
                         ZStack {
                             Circle()
@@ -102,6 +102,11 @@ struct ProjectDetailView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .sheet(item: $update) { update in
+            AddUpdateView(project: project, update: update)
+                .presentationDetents([.fraction(0.3)])
+                .background(Color.black) 
+        }
         
     }
 }
