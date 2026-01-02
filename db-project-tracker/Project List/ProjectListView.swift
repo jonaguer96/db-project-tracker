@@ -12,6 +12,7 @@ struct ProjectListView: View {
     
     @State private var newProject: Project?
     @Query private var projects: [Project]
+    @State private var selectedProject: Project?
     
     var body: some View {
         NavigationStack {
@@ -24,11 +25,20 @@ struct ProjectListView: View {
                         .font(Font.screenHeading)
                         .foregroundStyle(Color.white)
                     
-                    ScrollView (showsIndicators: false){
+                    ScrollView (showsIndicators: false) {
                         VStack(alignment: .leading, spacing: 26) {
                             
                             ForEach(projects) { p in
                                 
+                                ProjectCardView(project: p)
+                                    .onTapGesture {
+                                        selectedProject = p
+                                    }
+                                    .onLongPressGesture {
+                                        newProject = p
+                                    }
+                                
+                                /*
                                 NavigationLink {
                                     ProjectDetailView(project: p)
                                 } label: {
@@ -38,6 +48,7 @@ struct ProjectListView: View {
                                         }
                                 }
                                 .buttonStyle(.plain)
+                                 */
         
                             }
                             
@@ -65,6 +76,9 @@ struct ProjectListView: View {
                     }
                 }
                 .padding(.leading)
+            }
+            .navigationDestination(item: $selectedProject) { project in
+                ProjectDetailView(project: project)
             }
         }
         .sheet(item: $newProject) { project in
