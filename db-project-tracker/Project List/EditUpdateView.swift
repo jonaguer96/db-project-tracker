@@ -41,15 +41,32 @@ struct EditUpdateView: View {
                     
                     Button(isEditMode ? "Save" : "Add") {
                         
+                        // Keep track of the difference in hours for an edit update
+                        let hoursDifference = update.hours - Double(hours)!
+                        
                         //Either case we want to update the hupdates, headlines and summaries.
                         update.headline = headline
                         update.summary = summary
                         update.hours = Double(hours)!
                         
                         if !isEditMode {
+                            // Ensure the update date reflects the moment of adding
+                            update.date = Date()
+                            
                             // Add Project Update
                             // If it is NOT in EditMode, we need to insert that update.
                             project.updates.insert(update, at: 0)
+                            
+                            //Force a SwiftData save
+                            try? context.save()
+                            
+                            // Update stats
+                            StatHelper.updateAdded(project: project, update: update)
+                        }
+                        else {
+                            // Edit Project Update
+                            // Update Stats
+                            StatHelper.updateEdited(project: project, hoursDifference: hoursDifference)
                         }
                         dismiss()
                     }
@@ -74,6 +91,10 @@ struct EditUpdateView: View {
                 project.updates.removeAll { u in
                     u.id == update.id
                 }
+                // Force a SwiftData save
+                try? context.save()
+                // Delete updates
+                StatHelper.updateDeleted(project: project, update: update)
                 dismiss()
             }
         }
@@ -86,3 +107,4 @@ struct EditUpdateView: View {
         .padding(.top)
     }
 }
+
